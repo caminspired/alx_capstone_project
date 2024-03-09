@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Do The Thing</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="homepage">
+      <img src="logo.png" alt="Do The Thing Logo" class="logo" />
+      <h1>Welcome to a life of doing</h1>
+      <h2>
+        We help you organize your <span id="dynamic-word">tasks</span>, so you
+        can focus on what's important - doing the thing.
+      </h2>
+      <button class="btn-signup btn">Sign Up</button>
+      <button class="btn-login">Log In</button>
+    </div>
+    <div id="signup-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <form
+          action="/signup_page"
+          method="POST"
+          id="signup-form"
+          class="forms"
+        >
+          <img src="logo.png" alt="Do The Thing Logo" class="logo" />
+          <h1>Sign up</h1>
+          <button type="button" id="button" class="btn-icon">
+            <img src="google.png" class="icon" />Continue with Google
+          </button>
+          <button type="button" id="button" class="btn-icon">
+            <img src="google.png" class="icon" />
+            Continue with Facebook
+          </button>
+          <button type="button" id="button" class="btn-icon">
+            <img src="google.png" class="icon" />
+            Continue with Apple
+          </button>
+          <hr />
+          <ul>
+            <li>
+              <label for="name">Name<span class="required">*</span></label
+              ><br />
+              <input type="text" id="name" name="user_name" required />
+            </li>
+            <li>
+              <label for="mail">Email<span class="required">*</span></label
+              ><br />
+              <input type="email" id="mail" name="user_email" required />
+            </li>
+            <li>
+              <label for="password"
+                >Password<span class="required">*</span></label
+              ><br />
+              <input
+                type="password"
+                id="password"
+                name="user_password"
+                required
+              />
+            </li>
+            <li>
+              <label for="password"
+                >Confrim Password<span class="required">*</span></label
+              ><br />
+              <input
+                type="password"
+                id="confirm_password"
+                name="confirm_password"
+                required
+              />
+            </li>
+          </ul>
+          <button type="submit" id="button" class="btn">
+            Sign up with Email
+          </button>
+          <div class="info">
+            <p>
+              By continuing with Google, Apple, or Email, you agree to
+              Dothething's <span class="links">Terms of Service</span> and
+              <span class="links">Privacy Policy</span>.
+            </p>
+          </div>
+          <hr />
+          <p class="center-p">
+            Already have an account?
+            <span><a href="#" class="login-link links">Log in</a></span>
+          </p>
+        </form>
+      </div>
+    </div>
+    <div id="login-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <form action="/login_page" method="POST" id="login-form" class="forms">
+          <img src="logo.png" alt="Do The Thing Logo" class="logo" />
+          <h1>Log in</h1>
+          <button type="button" id="button" class="btn-icon">
+            <img src="google.png" class="icon" />Continue with Google
+          </button>
+          <button type="button" id="button" class="btn-icon">
+            <img src="google.png" class="icon" />
+            Continue with Facebook
+          </button>
+          <button type="button" id="button" class="btn-icon">
+            <img src="google.png" class="icon" />
+            Continue with Apple
+          </button>
+          <hr />
+          <ul>
+            <li>
+              <label for="mail">Email<span class="required">*</span></label
+              ><br />
+              <input type="email" id="mail" name="user_email" required />
+            </li>
+            <li>
+              <label for="password"
+                >Password<span class="required">*</span></label
+              ><br />
+              <input
+                type="password"
+                id="password"
+                name="user_password"
+                required
+              />
+            </li>
+          </ul>
+          <button type="submit" id="button" class="btn">Log In</button>
+          <div class="info">
+            <p class="links">Forgot yout password?</p>
+            <p>
+              By continuing with Google, Apple, or Email, you agree to
+              Dothething's <span class="links">Terms of Service</span> and
+              <span class="links">Privacy Policy</span>.
+            </p>
+          </div>
+          <hr />
+          <p class="center-p">
+            Don't have an account?
+            <span><a href="#" class="signup-link links">Sign up</a></span>
+          </p>
+        </form>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
