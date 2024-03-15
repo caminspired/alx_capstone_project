@@ -8,7 +8,12 @@
   </head>
   <body>
     <div class="homepage">
-      <img src="logo.png" alt="Do The Thing Logo" class="logo" />
+      <img
+        src="logo.png"
+        alt="Do The Thing Logo"
+        class="logo"
+        href="index.html"
+      />
       <h1>Welcome to a life of doing</h1>
       <h2>
         We help you organize your <span id="dynamic-word">tasks</span>, so you
@@ -26,17 +31,22 @@
           id="signup-form"
           class="forms"
         >
-          <img src="logo.png" alt="Do The Thing Logo" class="logo" />
+          <img
+            src="logo.png"
+            alt="Do The Thing Logo"
+            class="logo"
+            href="index.html"
+          />
           <h1>Sign up</h1>
-          <button type="button" id="button" class="btn-icon">
+          <button type="button" id="google-button" class="btn-icon">
             <img src="google.png" class="icon" />Continue with Google
           </button>
-          <button type="button" id="button" class="btn-icon">
-            <img src="google.png" class="icon" />
+          <button type="button" id="facebook-button" class="btn-icon">
+            <img src="facebook.png" class="icon" />
             Continue with Facebook
           </button>
-          <button type="button" id="button" class="btn-icon">
-            <img src="google.png" class="icon" />
+          <button type="button" id="apple-button" class="btn-icon">
+            <img src="apple.png" class="icon" />
             Continue with Apple
           </button>
           <hr />
@@ -96,17 +106,22 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         <form action="/login_page" method="POST" id="login-form" class="forms">
-          <img src="logo.png" alt="Do The Thing Logo" class="logo" />
+          <img
+            src="logo.png"
+            alt="Do The Thing Logo"
+            class="logo"
+            href="index.html"
+          />
           <h1>Log in</h1>
-          <button type="button" id="button" class="btn-icon">
+          <button type="button" id="google-button" class="btn-icon">
             <img src="google.png" class="icon" />Continue with Google
           </button>
-          <button type="button" id="button" class="btn-icon">
-            <img src="google.png" class="icon" />
+          <button type="button" id="facebook-button" class="btn-icon">
+            <img src="facebook.png" class="icon" />
             Continue with Facebook
           </button>
-          <button type="button" id="button" class="btn-icon">
-            <img src="google.png" class="icon" />
+          <button type="button" id="apple-button" class="btn-icon">
+            <img src="apple.png" class="icon" />
             Continue with Apple
           </button>
           <hr />
@@ -145,6 +160,27 @@
         </form>
       </div>
     </div>
+    <footer>
+      <div class="footer">
+        <div class="footer-logo-social">
+          <a class="logo-container" href="index.html"
+            ><img src="images/logo.png" alt="Logo"
+          /></a>
+          <div class="footer-social">
+            <a class="social" href="https://facebook.com"
+              ><img class="img" src="images/facebook.png" alt="facebook"
+            /></a>
+            <a class="social" href="https://twitter.com/home"
+              ><img class="img" src="images/twitter.png" alt="twitter"
+            /></a>
+            <a class="social" href="https://instagram.com"
+              ><img class="img" src="images/instagram.png" alt="instagram"
+            /></a>
+          </div>
+        </div>
+        <p class="copyright">©dothething2024</p>
+      </div>
+    </footer>
     <script src="script.js"></script>
   </body>
 </html>
