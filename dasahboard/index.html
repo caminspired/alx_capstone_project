@@ -1,110 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Title -->
     <title>Dashboard</title>
-    <link rel="stylesheet" href="styles.css" />
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="/alx_capstone_project/dashboard/styles.css" />
   </head>
   <body>
-    <header class="top-navbar">
-      <ul>
-        <li>
-          <input
-            type="text"
-            id="searchInput"
-            class="search-input"
-            placeholder="Search..."
+    <!-- Header -->
+    <header>
+      <div class="top-navbar">
+        <!-- Logo -->
+        <a href="index.html">
+          <img
+            src="/alx_capstone_project/images/logo.png"
+            alt="Do The Thing Logo"
+            class="logo"/></a>
+        <!-- Notifications Icon -->
+        <a href="index.html">
+          <img
+            src="/alx_capstone_project/images/notifications-icon.png"
+            alt="Notifications"
+            class="header-icon"
           />
-          <a href="/search" 
-          class="header-icon nav-icon"
-            ><img
-              src="/alx_capstone_project/images/search-icon.png"
-              alt="Search"
-              id="search-icon"
+        </a>
+      </div>
+      <!-- Search Input -->
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Search..."
+      />
+      <!-- Search Icon -->
+      <a href="/search" class="header-icon nav-icon">
+        <img
+          src="/alx_capstone_project/images/search-icon.png"
+          alt="Search"
+          id="search-icon"
+        />
+      </a>
+    </header>
+
+    <!-- Bottom Navigation -->
+    <nav >
+      <ul class="bottom-navbar">
+        <!-- Home -->
+        <li class="nav-icon">
+          <a href="index.html">
+            <img src="/alx_capstone_project/images/home-icon.png" alt="Home" />
+          </a>
+        </li>
+        <!-- Tasks -->
+        <li class="nav-icon">
+          <a href="index.html">
+            <img
+              src="/alx_capstone_project/images/tasks-icon.png"
+              alt="Categories"
             />
           </a>
         </li>
+        <!-- Add Task -->
         <li class="nav-icon">
-          <a href="/notification/index.html">
+          <a href="#add-task-form">
             <img
-              src="/alx_capstone_project/images/notifications-icon.png"
-              alt="Notifications"
-              class="header-icon"
-          /></a>
-        </li>
-      </ul>
-    </header>
-    <nav class="bottom-navbar">
-      <ul>
-        <li class="nav-icon">
-          <a href="/index.html"
-            ><img src="/alx_capstone_project/images/home-icon.png" alt="Home"
-          /></a>
-        </li>
-        <li class="nav-icon">
-          <a href="/tasks/index.html"
-            ><img
-              src="/alx_capstone_project/images/tasks-icon.png"
-              alt="Categories"
-          /></a>
-        </li>
-        <li class="nav-icon">
-          <a href="#add-task-form"
-            ><img
               id="add-icon"
               src="/alx_capstone_project/images/add-icon.png"
               alt="Add Task"
-          /></a>
-        </li class="nav-icon">
+            />
+          </a>
+        </li>
+        <!-- Calendar -->
         <li>
-          <a href="/calendar/index.html"
-            ><img
+          <a href="index.html">
+            <img
               src="/alx_capstone_project/images/calendar-icon.png"
               alt="Calendar"
-          /></a>
-        </li class="nav-icon">
+            />
+          </a>
+        </li>
+        <!-- Settings -->
         <li>
-          <a href="/settings/index.html"
-            ><img
+          <a href="index.html">
+            <img
               src="/alx_capstone_project/images/settings-icon.png"
               alt="Settings"
-          /></a>
+            />
+          </a>
         </li>
       </ul>
     </nav>
+
+    <!-- Progress Container -->
     <div id="progress_container">
+      <!-- Progress Fraction -->
       <div class="progress_fraction">
         <h2>{{completed_daily_tasks}} / {{total_daily_tasks}}</h2>
       </div>
+      <!-- Progress Comment -->
       <div class="progress_comment">
         <h1>Today's Progress</h1>
         <p>{{motivation}}</p>
       </div>
     </div>
+    <!-- <div class="tasks">
+      <h2>Tasks</h2>
+      <p>3 out of 10 tasks completed</p>
+      <ul class="task-list">
+        <li class="tasks"><input type="checkbox" />Task 1</li>
+        <li class="tasks"><input type="checkbox" />Task 2</li>
+        <li class="tasks"><input type="checkbox" />Task 3</li>
+        <!-- More tasks dynamically... -->
+      </ul>
+    </div> -->
+    <!-- Completed Tasks -->
     <div class="complete">
       <h2>Completed Tasks</h2>
       <ul class="recently_completed">
-        <!--Dynamically filled list with the last 3 most recently completed tasks-->
+        <!-- Dynamically filled list with the last 3 most recently completed tasks -->
       </ul>
       <p class="more">Load more</p>
     </div>
+
+    <!-- Current Tasks -->
     <div class="current">
       <h2>Current Tasks</h2>
       <ul class="current-task-list">
-        <!--Dynamically filled list with the first 10 tasks for the day-->
+        <!-- Dynamically filled list with the first 10 tasks for the day -->
       </ul>
       <p class="more">Load more</p>
     </div>
 
+    <!-- Upcoming Tasks -->
     <div class="upcoming">
       <h2>Upcoming Tasks</h2>
       <ul class="current-task-list">
-        <!--Dynamically filled list with the first 3 upcoming tasks by date-->
+        <!-- Dynamically filled list with the first 3 upcoming tasks by date -->
       </ul>
       <p class="more">Load more</p>
     </div>
 
+    <!-- Create Task Modal -->
     <div id="create-task-modal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -114,119 +153,12 @@
           id="create-task-form"
           class="forms"
         >
-          <ul>
-            <li>
-              <a href="/alx_capstone_project/dasahboard/index.html"><</a>
-              <h1>Create Task</h1>
-              >
-            </li>
-            <li>
-              <button id="save-btn" type="submit">Save</button>
-            </li>
-          </ul>
-          <ul class="">
-            <li class="name-block">
-              <label for="name">Name<span class="required">*</span></label
-              ><br />
-              <input type="text" id="name" name="task_name" required />
-            </li>
-            <li class="category-block">
-              <div>
-                <h2 class="">Category<span class="add-category-btn">+</span><h2>
-                <ul id="category-list">
-                  <li>
-                    <p class="category-alx category-name">ALX</p>
-                  </li>
-                  <!-- Add more category lists in ul-->
-                </ul>
-              </div>
-              </li>
-              <li class="start-end-block">
-                <div>
-                  <div class="start-block">
-                    <h3>Start</h3>
-                    <div>
-                        <input
-                        type="start-date"
-                        id="start-date"
-                        name="start-date"
-                        required
-                      /><br />
-                        <label for="start-date"
-                          >Date</label>
-                            <input
-                            type="time"
-                            id="start-time"
-                            name="start-time"
-                            required
-                          /><br />
-                            <label for="start-time"
-                              >Time</label>
-                    </div>
-                    <div class="end-block">
-                      <h3>End</h3>
-                      <div>
-                          <input
-                          type="end-date"
-                          id="end-date"
-                          name="end-date"
-                          required
-                        /><br />
-                          <label for="end-date"
-                            >Date</label>
-                              <input
-                              type="end-time"
-                              id="end-time"
-                              name="end-time"
-                              required
-                            /><br />
-                              <label for="end-time"
-                                >Time</label>
-                      </div>
-                  </div>
-                </div>
-              </li>
-            <li class="description-block">
-              <label for="description"
-                >Description</label>
-              ><br />
-              <textarea
-                id="description"
-                name="description"
-                ></textarea>
-            </li>
-            <li class="priority-block">
-              <h3>Priority
-              </h3>
-              <ul class="priorities">
-                <li>Low</li>
-                <li>Medium</li>
-                <li>High</li>
-              </ul>
-            </li>
-            <li class="notification-block">
-              <button type="toggle" id="notification-btn" class="btn">
-                Notifications
-              </button>
-            </li>
-            <li class="repeat-block">
-              <div>
-                <div>
-                  <img src="/alx_capstone_project/images/repeat-icon.png" class="repeat-icon" alt="Repeat Icon"/>
-                  <h3>Repeat</h3>
-                </div>
-                <ul>
-                  <li>Daily</li>
-                  <li>Weekly</li>
-                  <li>Monthly</li>
-                  <li>Yearly</li>
-                </ul>
-              </div>
-            </li>
-          </ul>
+          <!-- Form Content -->
         </form>
       </div>
     </div>
+
+    <!-- Create Category Modal -->
     <div id="create-category-modal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -236,20 +168,12 @@
           id="create-category-form"
           class="forms"
         >
-        <ul>
-          <li>
-        <label for="category-name">Name<span class="required">*</span></label
-          ><br />
-          <input type="text" id="category-name" name="category_name" required />
-        </li>
-        <li>
-          <label for="category-colour">Colour<span class="required">*</span></label
-            ><br />
-            <input type="picker" id="category-colour" name="category_colour" required />
-          </li>
-      </form>
+          <!-- Form Content -->
+        </form>
+      </div>
     </div>
-  </div>
+
+    <!-- JavaScript -->
     <script src="script.js"></script>
   </body>
 </html>

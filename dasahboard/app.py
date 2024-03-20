@@ -34,13 +34,21 @@ class Tasks():
     category = db.Column(String(128), nullable=False)
     priority = db.Column(String(128), nullable=False)
 
+class Category():
+    ''' creating a class for all categories '''
+    id = db.Column(Integer, primary_key=True, auto_increment=True)
+    name = db.Column(String(128))
+    colour = db.Column(String(128), unique=True, nullable=False)
+    user_id = User_id
     
+      
 def create_tables():
     with app.app_context():
         db.create_all()
         
 # This calls the function to create tables
 create_tables(Tasks())
+create_tables(Categories())
 
 @app.route('/')
 def home():
@@ -108,7 +116,7 @@ def total_daily_tasks():
 @app.route('/completed_daily_tasks', strict_slashes=False)
 def completed_daily_tasks():
     startDate = request.form.get('start-date')
-    totalTasks = Task.query.all(Task_start-date)
+    totalTasks = Task.query.all(Task_start-date.cpmpleted)
 
 @app.route('/categories', methods=['POST'])
 def create_category():
