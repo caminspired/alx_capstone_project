@@ -1,0 +1,170 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(120deg, #EA8D8D, #A890FE);
+  color: rgb(223, 218, 210);
+  font-family: 'Delius', sans-serif;
+  min-height: 100vh;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+.logo {
+  height: 10vh;
+}
+
+header {
+  font-size: 1.5rem;
+}
+
+.form {
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homepage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+
+.todo-input, .todo-button, .category-input, .category-button {
+  padding: 0.5rem;
+  font-size: 2rem;
+  border: none;
+  background: rgb(223, 218, 210);
+}
+
+
+.todo-button, .category-button {
+  color: #d88771;
+  background: rgb(223, 218, 210);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.todo-button:hover, .category-button:hover {
+  color: rgb(223, 218, 210);
+  background: #d88771;
+}
+
+.todo-container, .category-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.todo-list, .category-list {
+  min-width: 30%;
+  list-style: none;
+}
+
+.todo, .category {
+  margin: 0.5rem;
+  background:rgb(223, 218, 210);
+  color: black;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+
+.todo {
+  padding: 10px;
+  min-width: 80%;
+}
+
+.category-block, .todo-block {
+  background: #d8877194;
+  border-radius: 20px;
+  margin: 30px 20px;
+  width: 40%;
+  height: 70vh;
+}
+
+.todo li, .category li {
+  flex: 1;
+  width: 100%;
+}
+
+.delete-btn, .complete-btn {
+  color: rgb(223, 218, 210);
+  background: #e35637a0;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.complete-btn {
+  background: rgb(134, 149, 111);
+}
+
+.todo-item, .category-item {
+  padding: 0rem 0.5rem;
+}
+
+.fa-trash, .fa-check {
+  pointer-events: none;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.fall {
+  transform: translateY(8rem) rotateZ(20deg);
+  opacity: 0;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+}
+
+.select {
+  margin: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+select {
+  color: #d88771;
+  width: 10rem;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.select::after {
+  content: "\25BC";
+  position: absolute;
+  background: #d88771;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  pointer-events: none;
+}
+
+.select:hover::after {
+  background: rgb(223, 218, 210);
+  color: #d88771;
+  transition: all 0.3s ease;
+}
+
+

@@ -9,7 +9,7 @@ setInterval(() => {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    const signupButton = document.querySelector(".btn-signup");
+    const signupButton = document.querySelector("btn-signup");
     const loginButton = document.querySelector(".btn-login");
     const signupLink = document.querySelector(".signup-link");
     const loginLink = document.querySelector(".login-link");

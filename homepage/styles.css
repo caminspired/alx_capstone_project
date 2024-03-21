@@ -382,6 +382,13 @@ body {
     height: 100vh;
 }
 
+.img {
+  width: 30px;
+  height: 30px;
+}
+
+
+
 ul li {
     list-style: none;
     padding: 5px;
