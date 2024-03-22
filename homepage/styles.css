@@ -360,14 +360,13 @@
 }
 
 body {
-    margin: auto;
+    margin-top: 0;
     padding-top: 20px;
     background-color: #f9f6f2;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     color: #333;
     font-family: "Source Sans Pro", sans-serif;
     line-height: 1.5;
@@ -379,7 +378,7 @@ body {
     justify-content: center;
     padding: 20px;
     align-items: center;
-    height: 100vh;
+    height: 150vh;
 }
 
 .img {
@@ -387,7 +386,12 @@ body {
   height: 30px;
 }
 
-
+.social {
+  padding: 10px;
+  margin-top: 200px;
+  width: 30px;
+  height: 30px;
+}
 
 ul li {
     list-style: none;
@@ -409,6 +413,7 @@ input {
 
 .logo {
     max-width: 120px;
+    margin-top: 0;
 }
 
 h1 {
@@ -565,20 +570,28 @@ hr {
     align-self: center;
 }
 
+.footer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 /* Adjustments for screens above 768px*/
 @media only screen and (min-width: 768px) {
     .homepage {
         padding: 20px;
-    }
+        height: 100vh;
 
-    .logo {
-        max-width: 100px;
     }
 
     .logo {
         position: absolute;
         top: 20px;
         left: 10px;
+        max-width: 100px;
+
     }
 
     .btn-login {
@@ -599,6 +612,7 @@ hr {
 @media only screen and (min-width: 1024px) {
     .homepage {
         padding: 30px;
+        height: 100vh;
     }
 
     .logo {
