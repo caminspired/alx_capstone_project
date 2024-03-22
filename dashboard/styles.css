@@ -9,6 +9,7 @@ body {
   color: rgb(223, 218, 210);
   font-family: 'Delius', sans-serif;
   min-height: 100vh;
+  width: 100%;
 }
 
 h2 {
@@ -21,6 +22,16 @@ h2 {
 
 header {
   font-size: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 7%;
+  width: 100%;
+}
+
+.input-filter-block {
+  display: flex;
+  width: 20%;
 }
 
 .form {
@@ -34,10 +45,10 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80%;
+  width: 100%;
 }
 
-.todo-input, .todo-button, .category-input, .category-button {
+.todo-input, .todo-button, .category-input, .category-button, .search-input {
   padding: 0.5rem;
   font-size: 2rem;
   border: none;
@@ -45,7 +56,7 @@ header {
 }
 
 
-.todo-button, .category-button {
+.todo-button, .category-button, .search-button {
   color: #d88771;
   background: rgb(223, 218, 210);
   cursor: pointer;
@@ -63,6 +74,23 @@ header {
   justify-content: center;
   align-items: center;
   padding: 20px;
+}
+
+.todo-block, .todo-container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.todo-block h2 {
+  align-self: center;
+}
+
+.category-block {
+ width: 30%;
+ display: flex;
+ flex-direction: column;
 }
 
 .todo-list, .category-list {
@@ -142,6 +170,7 @@ select {
   margin: 1rem;
   position: relative;
   overflow: hidden;
+  display: flex;
 }
 
 select {

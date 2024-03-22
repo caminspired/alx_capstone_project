@@ -6,6 +6,8 @@ const filterOption = document.querySelector(".filter-todo");
 const categoryInput = document.querySelector(".category-input");
 const categoryButton = document.querySelector(".category-button");
 const categoryList = document.querySelector(".category-list");
+const searchInput = document.querySelector(".search-input");
+const categoryFilter = document.querySelector(".filter-category");
 
 
 
@@ -13,13 +15,14 @@ const categoryList = document.querySelector(".category-list");
 document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener('click', addTodo);
 todoList.addEventListener('click', deleteCheck);
-filterOption.addEventListener('click', filterTodo);
+filterOption.addEventListener('change', filterTodo);
 todoList.addEventListener('click', editTodoHandler);
 document.addEventListener("DOMContentLoaded", getCategories);
 categoryButton.addEventListener('click', addCategory);
 categoryList.addEventListener('click', deleteCategory);
 categoryList.addEventListener('click', editCategoryHandler);
 categoryDropdown.addEventListener('change', assignCategories)
+searchInput.addEventListener('input', searchTodo);
 
 
 
@@ -33,8 +36,11 @@ function addTodo() {
     newTodo.innerText = todoInput.value;
     newTodo.classList.add('todo-item');
     todoDiv.appendChild(newTodo);
+    // Add selected category to the task
+    const selectedCategory = document.querySelector('.categoryMenu').value;
+    newTodo.setAttribute('data-category', selectedCategory);
     // Add todo to local storage
-    saveLocalTodos(todoInput.value)
+    saveLocalTodos(todoInput.value, selectedCategory)
     // Create a div to hold buttons
     const controlDiv = document.createElement('div');
     controlDiv.classList.add('control-div');
@@ -51,24 +57,61 @@ function addTodo() {
     // Append category dropdown menu for selection
     const categoryDropdown = createCategoryDropdown();
     controlDiv.appendChild(categoryDropdown);
-    // Append task div to task list
+    // Add notification and priority options
+    const notificationInput = document.createElement('input');
+    notificationInput.type = 'checkbox';
+    notificationInput.classList.add('notification-checkbox');
+    controlDiv.appendChild(notificationInput);
+    const reminderInput = document.createElement('input');
+    reminderInput.type = 'datetime-local';
+    reminderInput.classList.add('reminder-input');
+    controlDiv.appendChild(reminderInput);
+    const prioritySelect = document.createElement('select');
+    prioritySelect.classList.add('priority-select');
+    const priorityOptions = ['Low', 'Medium', 'High'];
+    priorityOptions.forEach(option => {
+        const priorityOption = document.createElement('option');
+        priorityOption.value = option.toLowerCase();
+        priorityOption.text = option;
+        prioritySelect.appendChild(priorityOption);
+    });
+    controlDiv.appendChild(prioritySelect);
+    // Append control div to todo div
     todoDiv.appendChild(controlDiv);
+    // Append todo div to todo list
     todoList.appendChild(todoDiv);
     // Clear todo input value
     todoInput.value = "";
 }
 
+function searchTodo() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const todos = todoList.childNodes;
+    todos.forEach(todo => {
+        const todoText = todo.querySelector('.todo-item').innerText.toLowerCase();
+        if (todoText.includes(searchTerm)) {
+            todo.style.display = "flex";
+        } else {
+            todo.style.display = "none";
+        }
+    });
+}
+
 function assignCategories(event) {
     const todos = document.querySelectorAll('.todo-item');
-    const todosText = Array.from(todos).map(category => category.innerText);
-    localStorage.setItem('category', JSON.stringify(todosText));
+    todos.forEach(todo => {
+        const category = event.target.value;
+        todo.dataset.category = category;
+    });
+    // Update local storage after assigning categories
+    updateLocalTodos();
 }
 
 function deleteCheck(event) {
     const item = event.target;
     // Delete todo from list
     if (item.classList[0] === "delete-btn") {
-        const todo = item.parentElement;
+        const todo = event.target.closest("todo");
         const todoText = todo.children[0].innerText;
         // Animate falling 
         todo.classList.add("fall");
@@ -79,7 +122,7 @@ function deleteCheck(event) {
     }
     // Check todo as complete
     if (item.classList[0] === "complete-btn") {
-        const todo = item.parentElement;
+        const todo = event.target.closest("todo");
         todo.classList.toggle('completed');
     }
 }
@@ -108,10 +151,17 @@ function editTodo(todo) {
     });
 }
 
-function filterTodo(e) {
+function filterTodo() {
+    const selectedFilter = filterOption.value;
+    const selectedCategory = categoryFilter.value;    
     const todos = todoList.childNodes;
-    todos.forEach(function(todo) {
-        switch(e.target.value) {
+    todos.forEach(todo => {
+        const todoCategory = todo.querySelector('.categoryMenu').value;
+        const todoCompleted = todo.classList.contains('completed');
+
+        let displayTodo = true;    
+    todos.forEach(todo => {
+        switch(selectedFilter) {
             case "all":
                 todo.style.display = "flex";
                 break;
@@ -130,6 +180,12 @@ function filterTodo(e) {
                 }
                 break;
         }
+
+        if (selectedCategory !== "all" && todoCategory !== selectedCategory) {
+            displayTodo = false;
+        }
+
+        todo.style.display = displayTodo ? "flex" : "none";
     });
 }
 

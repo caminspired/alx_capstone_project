@@ -22,22 +22,33 @@
   <body>
     <header class="header">
       <a href="index.html"><img src="/alx_capstone_project/images/logo.png" class="logo" alt="Do The Thing Logo" /></a>
+      <div class="search-block">
+        <input type="text" class="search-input" placeholder="Search...">
+      <button type="submit" id="search-icon" class="search-button">
+        <i class="fas fa-search"></i>
+      </button>
+      </div>
     </header>
     <section class="homepage">
     <article class="todo-block">
       <h2>Today's Tasks</h2>
-      
+      <div class="input-filter-block">
       <div class="form">
       <input type="text" class="todo-input input" />
       <button class="todo-button btn" type="submit">
         <i class="fas fa-plus-square"></i>
       </button>
       <div class="select">
-        <select name="todos" class="filter-todo">
+        <select class="filter-todo">
           <option value="all">All</option>
           <option value="completed">Completed</option>
           <option value="pending">Pending</option>
-        </select>
+      </select>
+      <select class="filter-category">
+          <option value="all">All Categories</option>
+          <!-- Add options dynamically based on saved categories -->
+      </select>
+      </div>
       </div>
       </div>
       <div class="todo-container">
@@ -56,6 +67,10 @@
       </div>
     </article>
     </section>
+    <footer>
+      <h5>DOTHETHING TASK MANAGER APP</h5>
+      <p>CHARLOTTE AKOSUA MENSAH. All rights reserved.</p>
+  </footer>
     <script src="script.js"></script>
   </body>
 </html>
