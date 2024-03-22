@@ -397,13 +397,16 @@ ul li {
     list-style: none;
     padding: 5px;
     margin: 5px 0;
+    justify-items: center;
 }
 
 input {
+    display: flex;
+    justify-content: center;;
     background-color: transparent;
     border: 1px solid #645d5dc4;
     width: 100%;
-    border-radius: 10px;;
+    border-radius: 10px;
     padding: 10px 0;
 }
 
@@ -481,10 +484,11 @@ h2 {
     width: 90%;
 }
 
+
 .close {
     color: #aaa;
     position: absolute;
-    top: 120px;
+    top: 90px;
     right: 15%;
     font-size: 20px;
     font-weight: bold;
@@ -606,6 +610,10 @@ hr {
         transition: color 0.3s;
         width: 150px;
     }
+
+    .modal .logo {
+      margin-left: 19%;
+    }
 }
 
 /* Adjustments for screens larger than 1024px (laptops/desktops) */
@@ -615,6 +623,10 @@ hr {
         height: 100vh;
     }
 
+    .modal-content, .homepage {
+      width: 60%;
+    }
+
     .logo {
         max-width: 120px;
     }
@@ -622,5 +634,10 @@ hr {
     h1 {
         font-size: 4em;
     }
+
+    .modal .logo {
+      margin-left: 19%;
+    }
+    
 }
 
