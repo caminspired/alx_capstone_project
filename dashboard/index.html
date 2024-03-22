@@ -21,56 +21,63 @@
   </head>
   <body>
     <header class="header">
-      <a href="index.html"><img src="/alx_capstone_project/images/logo.png" class="logo" alt="Do The Thing Logo" /></a>
+      <a href="index.html"
+        ><img src="images/logo.png" class="logo" alt="Do The Thing Logo"
+      /></a>
       <div class="search-block">
-        <input type="text" class="search-input" placeholder="Search...">
-      <button type="submit" id="search-icon" class="search-button">
-        <i class="fas fa-search"></i>
-      </button>
+        <input type="text" class="search-input" placeholder="Search..." />
+        <button type="submit" id="search-icon" class="search-button">
+          <i class="fas fa-search"></i>
+        </button>
       </div>
     </header>
     <section class="homepage">
-    <article class="todo-block">
-      <h2>Today's Tasks</h2>
-      <div class="input-filter-block">
-      <div class="form">
-      <input type="text" class="todo-input input" />
-      <button class="todo-button btn" type="submit">
-        <i class="fas fa-plus-square"></i>
-      </button>
-      <div class="select">
-        <select class="filter-todo">
-          <option value="all">All</option>
-          <option value="completed">Completed</option>
-          <option value="pending">Pending</option>
-      </select>
-      <select class="filter-category">
-          <option value="all">All Categories</option>
-          <!-- Add options dynamically based on saved categories -->
-      </select>
-      </div>
-      </div>
-      </div>
-      <div class="todo-container">
-        <ul class="todo-list"></ul>
-      </div>
-    </article>
-    <article class="category-block form">
-      <h2>Categories</h2>
-    <div class="form">
-      <input type="text" class="category-input" />
-      <button class="category-button" type="submit">
-        <i class="fas fa-plus-square"></i>
-      </button>
-      <div class="category-container">
-        <ul class="category-list"></ul>
-      </div>
-    </article>
+      <article class="todo-block">
+        <h2>Today's Tasks</h2>
+        <form class="todo-form">
+          <input type="text" class="todo-input" />
+          <button class="todo-button btn" type="submit">
+            <i class="fas fa-plus-square"></i>
+          </button>
+        </form>
+        <div class="filter-container">
+          <div>
+            <label for="status">Status:</label>
+            <select id="status" class="filter-todo">
+              <option value="all">All</option>
+              <option value="completed">Completed</option>
+              <option value="pending">Pending</option>
+            </select>
+          </div>
+          <div>
+            <label for="categories">Categories:</label>
+            <select id="categories" class="filter-category">
+              <option value="all">All</option>
+              <!-- Add options dynamically based on saved categories -->
+            </select>
+          </div>
+        </div>
+        <div class="todo-container">
+          <ul class="todo-list"></ul>
+        </div>
+      </article>
+      <article class="category-block form">
+        <h2>Categories</h2>
+        <form>
+          <input type="text" class="category-input" />
+          <button class="category-button" type="submit">
+            <i class="fas fa-plus-square"></i>
+          </button>
+        </form>
+        <div class="category-container">
+          <ul class="category-list"></ul>
+        </div>
+      </article>
     </section>
     <footer>
       <h5>DOTHETHING TASK MANAGER APP</h5>
       <p>CHARLOTTE AKOSUA MENSAH. All rights reserved.</p>
-  </footer>
+    </footer>
     <script src="script.js"></script>
   </body>
 </html>

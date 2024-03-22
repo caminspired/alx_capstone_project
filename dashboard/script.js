@@ -8,79 +8,34 @@ const categoryButton = document.querySelector(".category-button");
 const categoryList = document.querySelector(".category-list");
 const searchInput = document.querySelector(".search-input");
 const categoryFilter = document.querySelector(".filter-category");
-
+const categoryDropdown = document.querySelector(".categoryMenu");
 
 
 // Event listeners
-document.addEventListener("DOMContentLoaded", getTodos);
+document.addEventListener("DOMContentLoaded", createTodoList);
 todoButton.addEventListener('click', addTodo);
-todoList.addEventListener('click', deleteCheck);
 filterOption.addEventListener('change', filterTodo);
-todoList.addEventListener('click', editTodoHandler);
 document.addEventListener("DOMContentLoaded", getCategories);
 categoryButton.addEventListener('click', addCategory);
 categoryList.addEventListener('click', deleteCategory);
 categoryList.addEventListener('click', editCategoryHandler);
-categoryDropdown.addEventListener('change', assignCategories)
+// categoryDropdown.addEventListener('change', assignCategories);
 searchInput.addEventListener('input', searchTodo);
 
 
 
 // Functions
 function addTodo() {
-    // Create task div 
-    const todoDiv = document.createElement('div');
-    todoDiv.classList.add('todo');
-    // Create list item
-    const newTodo = document.createElement('li');
-    newTodo.innerText = todoInput.value;
-    newTodo.classList.add('todo-item');
-    todoDiv.appendChild(newTodo);
-    // Add selected category to the task
-    const selectedCategory = document.querySelector('.categoryMenu').value;
-    newTodo.setAttribute('data-category', selectedCategory);
+    const newTodo = {
+        description: todoInput.value,
+        category: null,
+        priority: 'Low',
+        dueDate: null,
+        notify: false
+    };
     // Add todo to local storage
-    saveLocalTodos(todoInput.value, selectedCategory)
-    // Create a div to hold buttons
-    const controlDiv = document.createElement('div');
-    controlDiv.classList.add('control-div');
-    // Check button for completed tasks
-    const completedButton = document.createElement('button');
-    completedButton.innerHTML = '<i class="fas fa-check"></i>';
-    completedButton.classList.add('complete-btn');
-    controlDiv.appendChild(completedButton);
-    // Trash button for deleting tasks
-    const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
-    deleteButton.classList.add('delete-btn');
-    controlDiv.appendChild(deleteButton);
-    // Append category dropdown menu for selection
-    const categoryDropdown = createCategoryDropdown();
-    controlDiv.appendChild(categoryDropdown);
-    // Add notification and priority options
-    const notificationInput = document.createElement('input');
-    notificationInput.type = 'checkbox';
-    notificationInput.classList.add('notification-checkbox');
-    controlDiv.appendChild(notificationInput);
-    const reminderInput = document.createElement('input');
-    reminderInput.type = 'datetime-local';
-    reminderInput.classList.add('reminder-input');
-    controlDiv.appendChild(reminderInput);
-    const prioritySelect = document.createElement('select');
-    prioritySelect.classList.add('priority-select');
-    const priorityOptions = ['Low', 'Medium', 'High'];
-    priorityOptions.forEach(option => {
-        const priorityOption = document.createElement('option');
-        priorityOption.value = option.toLowerCase();
-        priorityOption.text = option;
-        prioritySelect.appendChild(priorityOption);
-    });
-    controlDiv.appendChild(prioritySelect);
-    // Append control div to todo div
-    todoDiv.appendChild(controlDiv);
-    // Append todo div to todo list
-    todoList.appendChild(todoDiv);
-    // Clear todo input value
+    saveLocalTodo(newTodo);
+    createTodoCard(newTodo);
     todoInput.value = "";
 }
 
@@ -97,48 +52,38 @@ function searchTodo() {
     });
 }
 
-function assignCategories(event) {
-    const todos = document.querySelectorAll('.todo-item');
+function assignCategories(event, id) {
     todos.forEach(todo => {
         const category = event.target.value;
         todo.dataset.category = category;
     });
     // Update local storage after assigning categories
-    updateLocalTodos();
+    updateLocalTodos(to);
 }
 
-function deleteCheck(event) {
+function deleteTodo(event, id) {
     const item = event.target;
     // Delete todo from list
-    if (item.classList[0] === "delete-btn") {
-        const todo = event.target.closest("todo");
-        const todoText = todo.children[0].innerText;
-        // Animate falling 
-        todo.classList.add("fall");
-        removeLocalTodos(todoText);
-        todo.addEventListener("transitionend", function() {
-            todo.remove();
-        })
-    }
+    const todo = item.closest('.todo');
+    todo.classList.add("fall");
+    removeLocalTodos(id);
+    todo.addEventListener("transitionend", function() {
+        todo.remove();
+    })
+
+}
+
+function markComplete(event, id) {
     // Check todo as complete
-    if (item.classList[0] === "complete-btn") {
-        const todo = event.target.closest("todo");
-        todo.classList.toggle('completed');
-    }
-}
-
-function editTodoHandler(event) {
     const item = event.target;
-    // Check if the user clicked on the todo item itself
-    if (item.classList.contains('todo-item')) {
-        const todo = item.parentElement;
-        // Call the editTodo function with the parent todo element
-        editTodo(todo); 
-    }
+
+        const todo = event.target.closest(".todo");
+        //TODO: update TODO in storage
+        todo?.classList.toggle('completed');
 }
 
-function editTodo(todo) {
-    const todoText = todo.querySelector('.todo-item');
+function editTodo(event, todo) {
+    const todoText = event.target;
     // Enable content editing
     todoText.contentEditable = true;
     // Focus on the todo text for immediate editing
@@ -147,7 +92,7 @@ function editTodo(todo) {
     todoText.addEventListener('blur', function() {
         // Disable content editing after editing is finished
         todoText.contentEditable = false;
-        updateLocalTodos();
+        updateLocalTodos({...todo, description: event.target.innerText});
     });
 }
 
@@ -187,93 +132,124 @@ function filterTodo() {
 
         todo.style.display = displayTodo ? "flex" : "none";
     });
-}
+})}
 
-function saveLocalTodos(todo) {
+function saveLocalTodo(todo) {
     // Check if there are already items in the todo list
-    let todos;
-    if (localStorage.getItem('todos') === null) {
-        todos = [];
-    }else {
-        todos = JSON.parse(localStorage.getItem('todos'))
-    }
+    const todos = fetchTodos();
     todos.push(todo);
     localStorage.setItem('todos', JSON.stringify(todos))
 }
 
-function getTodos() {
-        // Check if there are already items in the todo list
-    let todos;
-    if (localStorage.getItem('todos') === null) {
-        todos = [];
-    }else {
-        todos = JSON.parse(localStorage.getItem('todos'))
-    }
-    todos.forEach(function(todo){
-        // Create todo div 
-        const todoDiv = document.createElement('div');
-        todoDiv.classList.add('todo');
-        // Create list item
-        const newTodo = document.createElement('li');
-        newTodo.innerText = todo;
-        newTodo.classList.add('todo-item');
-        todoDiv.appendChild(newTodo);
-        // Create a div to hold buttons
-        const controlDiv = document.createElement('div');
-        controlDiv.classList.add('control-div');
-        // Check button for completed tasks
-        const completedButton = document.createElement('button');
+function createTodoCard(todo) {
+    const {id, description, category, priority, dueDate, notify} = todo;
+
+    // Create todo card 
+    const todoCard = document.createElement('li');
+    todoCard.classList.add('todo');
+    //add todo content 
+    const newTodo = document.createElement('div');
+    newTodo.innerText = description;
+    newTodo.classList.add('todo-item');
+    newTodo.addEventListener('click', (event) => editTodo(event, todo))
+    todoCard.appendChild(newTodo);
+    //add container for control buttons
+    const controlDiv = document.createElement('div');
+    controlDiv.classList.add('control-div');
+    const controlFirstRow = document.createElement('div');
+    controlFirstRow.classList.add('control-first-row');
+    const controlSecondRow = document.createElement('div');
+    controlSecondRow.classList.add('control-second-row');
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.classList.add('control-button-container');
+
+    const completedButton = document.createElement('button');
         completedButton.innerHTML = '<i class="fas fa-check"></i>';
-        completedButton.classList.add('complete-btn');
-        controlDiv.appendChild(completedButton);
+        completedButton.classList.add('complete-btn', 'control-button');
+        completedButton.addEventListener('click', (event) => markComplete(event));
+        buttonsDiv.appendChild(completedButton);
         // Trash button for deleting tasks
         const deleteButton = document.createElement('button');
         deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
-        deleteButton.classList.add('delete-btn');
-        controlDiv.appendChild(deleteButton);
-        // Append category dropdown menu for selection
-        const categoryDropdown = createCategoryDropdown();
-        controlDiv.appendChild(categoryDropdown);
-        // Append task div to task list
-        todoDiv.appendChild(controlDiv);
-        todoList.appendChild(todoDiv);
-    }) 
+        deleteButton.classList.add('delete-btn', 'control-button');
+        deleteButton.addEventListener('click', (event) => deleteTodo(event, id));
+        buttonsDiv.appendChild(deleteButton);
+        controlFirstRow.appendChild(buttonsDiv);
+        // add notify me checkbox 
+        const notifyButton = document.createElement('input');
+        const notifyDiv = document.createElement('div');
+        notifyButton.type = 'checkbox';
+        notifyButton.id = 'notify';
+        notifyButton.checked = notify;
+        const notifyLabel = document.createElement('label');
+        notifyLabel.htmlFor = 'notify';
+        notifyLabel.innerText = 'Notify Me'
+        notifyDiv.appendChild(notifyButton);
+        notifyDiv.appendChild(notifyLabel);
+        controlFirstRow.appendChild(notifyDiv);
+        controlDiv.appendChild(controlFirstRow);
+        // Append category dropdown menu
+        const {categoryDropdown, categoryLabel} = createCategoryDropdown({id, category});
+        controlSecondRow.appendChild(categoryLabel);
+        controlSecondRow.appendChild(categoryDropdown);
+        // Append priority dropdown menu
+        const {priorityDropdown, priorityLabel} = createPriorityDropdown({id, priority});
+        controlSecondRow.appendChild(priorityLabel);
+        controlSecondRow.appendChild(priorityDropdown);
+        controlDiv.appendChild(controlSecondRow);        
+        const datePicker = createDueDatePicker({id, dueDate});
+        controlDiv.appendChild(datePicker);
+        // Append todo card to todo list
+        todoCard.appendChild(controlDiv);
+        todoList.appendChild(todoCard);
 }
 
-function removeLocalTodos(todoText) {
-    // Check if there are already items in the todo list
-    let todos;
-    if (localStorage.getItem('todos') === null) {
-        todos = [];
-    }else {
-        todos = JSON.parse(localStorage.getItem('todos'))
-    }
-    const todoIndex = todos.indexOf(todoText);
+function fetchTodos() {
+        // Check if there are already items in the todo list
+    const todos = localStorage.getItem('todos');
+    return todos ? JSON.parse(todos) : [];
+}
+
+function createTodoList() {
+    const todos = fetchTodos();
+    todos.forEach(function(todo){
+        createTodoCard(todo);
+    }); 
+}
+
+function removeLocalTodos(id) {
+    const todos = fetchTodos();
+    const todoIndex = todos.findIndex((todo) => todo.id === id);
     todos.splice(todoIndex, 1);
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
-function updateLocalTodos() {
-    const todos = document.querySelectorAll('.todo-item');
-    const todosText = Array.from(todos).map(todo => todo.innerText);
-    localStorage.setItem('todos', JSON.stringify(todosText));
+function updateLocalTodos(todo) {
+    const todos = fetchTodos();
+    const updatedTodos = todos.map((td) => {
+            return td.id === todo.id ? todo : td
+    })
+    localStorage.setItem('todos', JSON.stringify(updatedTodos));
 }
 
 function addCategory() {
+    const categoryContainer = document.querySelector('.category-list');
     // Create category div 
-    const categoryDiv = document.createElement('div');
+    const categoryDiv = document.createElement('li');
     categoryDiv.classList.add('category');
     // Create list item
-    const newCategory = document.createElement('li');
+    const newCategory = document.createElement('div');
     newCategory.innerText = categoryInput.value;
     newCategory.classList.add('category-item');
     categoryDiv.appendChild(newCategory);
+    categoryContainer.appendChild(categoryDiv);
     // Add category to local storage
     saveLocalCategories(categoryInput.value)
     // Trash button for deleting categories
     const deleteButton = document.createElement('button');
     deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
     deleteButton.classList.add('delete-btn');
+    deleteButton.addEventListener('click', deleteCategory);
     categoryDiv.appendChild(deleteButton);
     // Append category div to category list
     categoryList.appendChild(categoryDiv);
@@ -281,22 +257,53 @@ function addCategory() {
     categoryInput.value = "";
 }
 
-function createCategoryDropdown() {
+function createCategoryDropdown({id, category}) {
+    const categoryId = `category-${id}`;
     const categories = fetchCategory();
+    const categoryLabel = document.createElement('label');
+    categoryLabel.htmlFor = categoryId;
+    categoryLabel.innerText = 'Category';
     const categoryDropdown = document.createElement('select');
     categoryDropdown.classList.add('categoryMenu');
+    categoryDropdown.value = category;
     categories.forEach(function(category) {
         const option = document.createElement('option');
         option.innerText = category;
         categoryDropdown.appendChild(option);
-    })
-    return categoryDropdown;
+    });
+    return {categoryDropdown, categoryLabel};
+}
+
+function createPriorityDropdown({id, priority}) {
+    const priorityOptions = ['Low', 'Medium', 'High'];
+
+    const priorityId = `priority-${id}`;
+    const priorityLabel = document.createElement('label');
+    priorityLabel.htmlFor = priorityId;
+    priorityLabel.innerText = 'Priority'
+    const priorityDropdown = document.createElement('select');
+    priorityDropdown.classList.add('categoryMenu');
+    priorityDropdown.id = priorityId;
+    priorityOptions.forEach(function(priority) {
+        const option = document.createElement('option');
+        option.innerText = priority;
+        priorityDropdown.appendChild(option);
+    });
+    priorityDropdown.value = priority;
+    return {priorityDropdown, priorityLabel};
+}
+
+function createDueDatePicker({id, dueDate}) {
+    const dueDateId = `dueDate-${id}`;
+    const datePicker = document.createElement('time');
+    datePicker.id = dueDateId;
+    datePicker.value = dueDate;
+    return datePicker; 
 }
 
 function deleteCategory(event) {
     const item = event.target;
     // Delete category from list
-    if (item.classList[0] === "delete-btn") {
         const category = item.parentElement;
         const categoryText = category.children[0].innerText;
         // Animate falling 
@@ -305,7 +312,7 @@ function deleteCategory(event) {
         category.addEventListener("transitionend", function() {
             category.remove();
         })
-}
+
 }
 
 function editCategoryHandler(event) {
